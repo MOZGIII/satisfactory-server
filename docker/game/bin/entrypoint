@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+init-container
+
+exec setpriv \
+  --reuid="$GAME_UID" \
+  --regid="$GAME_GID" \
+  --init-groups \
+  --reset-env \
+  "$@"

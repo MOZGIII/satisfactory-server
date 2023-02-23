@@ -4,16 +4,45 @@ set -euo pipefail
 cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
 
 set -a
+source config
 source .env
 set +a
 
+docker build \
+  docker/game \
+  -t game \
+  --build-arg GAME_UID \
+  --build-arg GAME_GID \
+  --build-arg FROM=steamcmd/steamcmd:latest
+
+CMD=("$@")
+
+if [[ "${#CMD[@]}" == 0 ]]; then
+  CMD=(./FactoryServer.sh)
+fi
+
+DOCKER_ARGS=()
+
+if [[ "${DETACHED:-}" == "true" ]]; then
+  DOCKER_ARGS+=(-d)
+else
+  DOCKER_ARGS+=(-it)
+fi
+
+if [[ "${AUTORESTART:-}" == "true" ]]; then
+  DOCKER_ARGS+=(--restart always)
+fi
+
 docker run \
   --rm \
-  -it \
+  "${DOCKER_ARGS[@]}" \
   -v "$GAME_DIR:/data" \
   -w /data \
-  -u "65534:65534" \
+  -e GAME_UID \
+  -e GAME_GID \
+  -e CHOWN_GAME_DIR=/data \
+  --init \
   --net host \
   --name game-ops \
-  ubuntu:latest \
-  ./FactoryServer.sh
+  game \
+  "${CMD[@]}"

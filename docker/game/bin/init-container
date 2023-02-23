@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+
+if [[ "${CHOWN_GAME_DIR:-}" != "" ]]; then
+  chown -R "$GAME_UID:$GAME_GID" "$CHOWN_GAME_DIR"
+fi

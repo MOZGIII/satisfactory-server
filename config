@@ -1,0 +1,3 @@
+GAME_DIR=$(pwd)/game
+GAME_UID=5000
+GAME_GID=5000
