@@ -1,0 +1,22 @@
+#!/bin/bash
+set -euo pipefail
+
+cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
+
+set -a
+source .env
+set +a
+
+docker run \
+  --rm \
+  -it \
+  -v "$GAME_DIR:/data" \
+  --net host \
+  --name game-ops \
+  steamcmd/steamcmd:latest \
+  +force_install_dir /data \
+  +login anonymous \
+  +app_update 1690800 \
+  -beta experimental \
+  validate \
+  +quit
