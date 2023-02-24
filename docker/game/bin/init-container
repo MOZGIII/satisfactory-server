@@ -1,6 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
-if [[ "${CHOWN_GAME_DIR:-}" != "" ]]; then
-  chown -R "$GAME_UID:$GAME_GID" "$CHOWN_GAME_DIR"
-fi
+chownif() {
+  local TARGET_IF="$1"
+  if [[ "${TARGET_IF}" != "" ]]; then
+    chown -R "$GAME_UID:$GAME_GID" "$TARGET_IF"
+  fi
+}
+
+chownif "${CHOWN_GAME_DATA_DIR:-}"
+chownif "${CHOWN_GAME_CONFIG_DIR:-}"

@@ -36,11 +36,13 @@ fi
 docker run \
   --rm \
   "${DOCKER_ARGS[@]}" \
-  -v "$GAME_DIR:/data" \
+  -v "$GAME_DATA_DIR:/data" \
+  -v "$GAME_CONFIG_DIR:/home/game" \
   -w /data \
   -e GAME_UID \
   -e GAME_GID \
-  -e CHOWN_GAME_DIR=/data \
+  -e CHOWN_GAME_DATA_DIR=/data \
+  -e CHOWN_GAME_CONFIG_DIR=/home/game \
   --init \
   --net host \
   --name game-ops \

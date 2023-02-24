@@ -11,7 +11,7 @@ set +a
 docker run \
   --rm \
   -it \
-  -v "$GAME_DIR:/data" \
+  -v "$GAME_DATA_DIR:/data" \
   --net host \
   --name game-ops \
   steamcmd/steamcmd:latest \

@@ -1,3 +1,4 @@
-GAME_DIR=$(pwd)/game
+GAME_DATA_DIR=$(pwd)/data/game
+GAME_CONFIG_DIR=$(pwd)/data/config
 GAME_UID=5000
 GAME_GID=5000
