@@ -41,8 +41,9 @@ docker run \
   -w /data \
   -e GAME_UID \
   -e GAME_GID \
-  -e CHOWN_GAME_DATA_DIR=/data \
-  -e CHOWN_GAME_CONFIG_DIR=/home/game \
+  -e CONTAINER_GAME_DATA_DIR=/data \
+  -e CONTAINER_GAME_CONFIG_DIR=/home/game \
+  -e CONTAINER_CHOWN=true \
   --init \
   --net host \
   --name game-ops \
