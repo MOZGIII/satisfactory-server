@@ -9,9 +9,13 @@ chownif() {
 }
 
 if [[ "${CONTAINER_SYMLINK_STEAMCLIENT:-}" != "false" ]]; then
-  LINK_TARGET="${CONTAINER_GAME_CONFIG_DIR}/.steam/sdk64/steamclient.so"
-  mkdir -p "$(dirname "$LINK_TARGET")"
+  GAME_USER_HOME="$(getent passwd "$GAME_UID" | cut -d: -f6)"
+  GAME_USER_STEAM_DIR="${GAME_USER_HOME}/.steam"
+  LINK_TARGET="${GAME_USER_STEAM_DIR}/sdk64/steamclient.so"
+  LINK_TARGET_DIR="$(dirname "$LINK_TARGET")"
+  mkdir -p "$LINK_TARGET_DIR"
   ln -sf "${CONTAINER_GAME_DATA_DIR}/linux64/steamclient.so" "$LINK_TARGET"
+  chown -R "$GAME_UID:$GAME_GID" "$GAME_USER_STEAM_DIR"
 fi
 
 if [[ "${CONTAINER_CHOWN:-}" == "true" ]]; then
