@@ -8,9 +8,6 @@ chownif() {
   fi
 }
 
-mkdir -p "$CONTAINER_GAME_CONFIG_DIR/.steam/sdk64"
-ln -sf "$CONTAINER_GAME_DATA_DIR/steamclient.so" "$CONTAINER_GAME_CONFIG_DIR/.steam/sdk64/steamclient.so"
-
 if [[ "${CONTAINER_CHOWN:-}" == "true" ]]; then
   chownif "${CONTAINER_GAME_DATA_DIR}"
   chownif "${CONTAINER_GAME_CONFIG_DIR}"
