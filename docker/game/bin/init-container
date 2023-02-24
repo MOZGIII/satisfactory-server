@@ -8,6 +8,12 @@ chownif() {
   fi
 }
 
+if [[ "${CONTAINER_SYMLINK_STEAMCLIENT:-}" != "false" ]]; then
+  LINK_TARGET="${CONTAINER_GAME_CONFIG_DIR}/.steam/sdk64/steamclient.so"
+  mkdir -p "$(dirname "$LINK_TARGET")"
+  ln -sf "${CONTAINER_GAME_DATA_DIR}/linux64/steamclient.so" "$LINK_TARGET"
+fi
+
 if [[ "${CONTAINER_CHOWN:-}" == "true" ]]; then
   chownif "${CONTAINER_GAME_DATA_DIR}"
   chownif "${CONTAINER_GAME_CONFIG_DIR}"
