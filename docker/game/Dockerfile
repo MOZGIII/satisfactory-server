@@ -4,7 +4,8 @@ FROM ${FROM}
 
 RUN apt-get update \
   && apt-get install -y \
-  ca-certificates
+  ca-certificates \
+  gosu
 
 ARG GAME_UID
 ARG GAME_GID
