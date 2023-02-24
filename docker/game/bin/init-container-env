@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+if [[ "${CONTAINER_EXTEND_LD_LIBRARY_PATH:-}" != "false" ]]; then
+  if [[ "${LD_LIBRARY_PATH:-}" != "" ]]; then
+    LD_LIBRARY_PATH="$CONTAINER_GAME_DATA_DIR/linux64:$LD_LIBRARY_PATH"
+  else
+    LD_LIBRARY_PATH="$CONTAINER_GAME_DATA_DIR/linux64"
+  fi
+  export LD_LIBRARY_PATH
+fi

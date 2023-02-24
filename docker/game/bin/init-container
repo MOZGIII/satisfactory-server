@@ -8,7 +8,7 @@ chownif() {
   fi
 }
 
-if [[ "${CONTAINER_SYMLINK_STEAMCLIENT:-}" != "false" ]]; then
+if [[ "${CONTAINER_SYMLINK_STEAMCLIENT:-}" == "true" ]]; then
   GAME_USER_HOME="$(getent passwd "$GAME_UID" | cut -d: -f6)"
   GAME_USER_STEAM_DIR="${GAME_USER_HOME}/.steam"
   LINK_TARGET="${GAME_USER_STEAM_DIR}/sdk64/steamclient.so"

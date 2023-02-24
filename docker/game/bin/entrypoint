@@ -3,6 +3,8 @@ set -euo pipefail
 
 init-container
 
+source "$(which init-container-env)"
+
 exec setpriv \
   --reuid="$GAME_UID" \
   --regid="$GAME_GID" \
